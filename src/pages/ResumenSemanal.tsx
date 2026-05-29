@@ -75,10 +75,13 @@ export default function ResumenSemanal() {
       const V = ventas || []
       const G = gastos || []
 
+      // Recalcular monday dentro del efecto para evitar dependencia inestable
+      const mondayLocal = new Date(desde + 'T12:00:00')
+
       // Construir los 7 días de la semana
       const dayStats: DayStat[] = Array.from({ length: 7 }, (_, i) => {
-        const d = new Date(monday)
-        d.setDate(monday.getDate() + i)
+        const d = new Date(mondayLocal)
+        d.setDate(mondayLocal.getDate() + i)
         const fecha = d.toISOString().split('T')[0]
         const ventasDia = V.filter(v => v.fecha === fecha)
         const gastosDia = G.filter(g => g.fecha === fecha)
@@ -131,7 +134,7 @@ export default function ResumenSemanal() {
       setLoading(false)
     }
     load()
-  }, [desde, hasta, prevDesde, prevHasta, monday])
+  }, [desde, hasta, prevDesde, prevHasta])
 
   const mejorDia = days.reduce((best, d) => d.ingresos > best.ingresos ? d : best, days[0] || { label: '', ingresos: 0 })
 
