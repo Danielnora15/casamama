@@ -1,11 +1,12 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { LayoutDashboard, History, BarChart3, LogOut, UtensilsCrossed, Menu, X } from 'lucide-react'
+import { LayoutDashboard, History, BarChart3, CalendarDays, LogOut, UtensilsCrossed, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
 const navItems = [
   { to: '/', icon: LayoutDashboard, label: 'Registro diario' },
   { to: '/historial', icon: History, label: 'Historial' },
+  { to: '/semana', icon: CalendarDays, label: 'Semana' },
   { to: '/resumen', icon: BarChart3, label: 'Resumen' },
 ]
 

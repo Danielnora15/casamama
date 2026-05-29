@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import RegistroDiario from './pages/RegistroDiario'
 import Historial from './pages/Historial'
 import Resumen from './pages/Resumen'
+import ResumenSemanal from './pages/ResumenSemanal'
 
 function ProtectedRoutes() {
   const { session, loading } = useAuth()
@@ -25,6 +26,7 @@ function ProtectedRoutes() {
       <Route element={<Layout />}>
         <Route index element={<RegistroDiario />} />
         <Route path="historial" element={<Historial />} />
+        <Route path="semana" element={<ResumenSemanal />} />
         <Route path="resumen" element={<Resumen />} />
       </Route>
     </Routes>
