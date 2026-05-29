@@ -158,7 +158,7 @@ export default function RegistroDiario() {
             type="date"
             value={fecha}
             onChange={e => setFecha(e.target.value)}
-            className="bg-[#1e1e1e] border border-[#2e2e2e] text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#c9a84c]"
+            className="bg-[#1c1512] border border-[#2e2e2e] text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#c9a84c]"
           />
           <button
             onClick={() => setFecha(today())}
@@ -172,7 +172,7 @@ export default function RegistroDiario() {
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
         {stats.map(s => (
-          <div key={s.label} className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-4">
+          <div key={s.label} className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-4">
             <div className="flex items-center justify-between mb-2">
               <p className="text-gray-400 text-xs uppercase tracking-wider">{s.label}</p>
               {s.icon && (
@@ -190,7 +190,7 @@ export default function RegistroDiario() {
 
       <div className="grid md:grid-cols-2 gap-4">
         {/* VENTAS */}
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-5">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <ShoppingCart size={16} className="text-[#c9a84c]" />
@@ -207,11 +207,11 @@ export default function RegistroDiario() {
 
           {/* Editor menús rápidos */}
           {showMenuEditor && (
-            <div className="mb-4 p-3 bg-[#252525] rounded-xl border border-[#333]">
+            <div className="mb-4 p-3 bg-[#241a16] rounded-xl border border-[#3a2e28]">
               <p className="text-xs text-gray-400 mb-2 font-medium">Menús rápidos</p>
               <div className="flex flex-col gap-1.5 mb-2 max-h-36 overflow-y-auto">
                 {menusRapidos.map((m, i) => (
-                  <div key={i} className="flex items-center justify-between bg-[#1e1e1e] px-3 py-1.5 rounded-lg">
+                  <div key={i} className="flex items-center justify-between bg-[#1c1512] px-3 py-1.5 rounded-lg">
                     <span className="text-white text-xs">{m.nombre} — {formatCOP(m.precio)}</span>
                     <button onClick={() => eliminarMenuRapido(i)} className="text-red-400 hover:text-red-300 ml-2">
                       <X size={13} />
@@ -224,13 +224,13 @@ export default function RegistroDiario() {
                   placeholder="Nombre del menú"
                   value={nuevoMenu.nombre}
                   onChange={e => setNuevoMenu(p => ({ ...p, nombre: e.target.value }))}
-                  className="flex-1 bg-[#1a1a1a] border border-[#333] text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-[#c9a84c]"
+                  className="flex-1 bg-[#1a1a1a] border border-[#3a2e28] text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-[#c9a84c]"
                 />
                 <input
                   placeholder="Precio"
                   value={nuevoMenu.precio}
                   onChange={e => setNuevoMenu(p => ({ ...p, precio: e.target.value }))}
-                  className="w-24 bg-[#1a1a1a] border border-[#333] text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-[#c9a84c]"
+                  className="w-24 bg-[#1a1a1a] border border-[#3a2e28] text-white text-xs rounded-lg px-2 py-1.5 focus:outline-none focus:border-[#c9a84c]"
                 />
                 <button onClick={agregarMenuRapido} className="bg-[#c9a84c] text-black px-2 py-1.5 rounded-lg text-xs font-bold hover:bg-[#a07830]">
                   <Plus size={14} />
@@ -250,7 +250,7 @@ export default function RegistroDiario() {
                 <button
                   key={i}
                   onClick={() => usarMenuRapido(m)}
-                  className="px-3 py-1.5 bg-[#252525] hover:bg-[#c9a84c]/15 border border-[#333] hover:border-[#c9a84c]/40 text-gray-300 hover:text-[#c9a84c] rounded-full text-xs transition-all duration-150"
+                  className="px-3 py-1.5 bg-[#241a16] hover:bg-[#c9a84c]/15 border border-[#3a2e28] hover:border-[#c9a84c]/40 text-gray-300 hover:text-[#c9a84c] rounded-full text-xs transition-all duration-150"
                 >
                   {m.nombre}
                 </button>
@@ -264,14 +264,14 @@ export default function RegistroDiario() {
               placeholder="Nombre del menú"
               value={menuNombre}
               onChange={e => setMenuNombre(e.target.value)}
-              className="w-full bg-[#252525] border border-[#333] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600"
+              className="w-full bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600"
             />
             <div className="flex gap-2">
               <input
                 placeholder="Precio"
                 value={precio}
                 onChange={e => setPrecio(e.target.value)}
-                className="flex-1 bg-[#252525] border border-[#333] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c]"
+                className="flex-1 bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c]"
               />
               <input
                 placeholder="Cantidad"
@@ -279,7 +279,7 @@ export default function RegistroDiario() {
                 onChange={e => setCantidad(e.target.value)}
                 type="number"
                 min="1"
-                className="w-24 bg-[#252525] border border-[#333] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c]"
+                className="w-24 bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c]"
               />
               <button
                 onClick={agregarVenta}
@@ -296,7 +296,7 @@ export default function RegistroDiario() {
             {ventas.length === 0 ? (
               <p className="text-gray-600 text-sm text-center py-4">No hay ventas registradas</p>
             ) : ventas.map(v => (
-              <div key={v.id} className="flex items-center justify-between bg-[#252525] rounded-xl px-3 py-2.5 group">
+              <div key={v.id} className="flex items-center justify-between bg-[#241a16] rounded-xl px-3 py-2.5 group">
                 <div>
                   <p className="text-white text-sm font-medium">{v.menu}</p>
                   <p className="text-gray-400 text-xs">{v.cantidad} × {formatCOP(v.precio)}</p>
@@ -313,7 +313,7 @@ export default function RegistroDiario() {
         </div>
 
         {/* GASTOS */}
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-5">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-4">
             <Receipt size={16} className="text-red-400" />
             <h2 className="font-semibold text-white text-sm uppercase tracking-wider">Gastos del día</h2>
@@ -325,13 +325,13 @@ export default function RegistroDiario() {
               placeholder="Descripción (ej: Compra de carnes)"
               value={gastDesc}
               onChange={e => setGastDesc(e.target.value)}
-              className="w-full bg-[#252525] border border-[#333] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600"
+              className="w-full bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600"
             />
             <div className="flex gap-2">
               <select
                 value={gastCat}
                 onChange={e => setGastCat(e.target.value)}
-                className="flex-1 bg-[#252525] border border-[#333] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c]"
+                className="flex-1 bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c]"
               >
                 {CATEGORIAS.map(c => <option key={c}>{c}</option>)}
               </select>
@@ -339,7 +339,7 @@ export default function RegistroDiario() {
                 placeholder="Valor"
                 value={gastValor}
                 onChange={e => setGastValor(e.target.value)}
-                className="w-32 bg-[#252525] border border-[#333] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c]"
+                className="w-32 bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c]"
               />
               <button
                 onClick={agregarGasto}
@@ -356,7 +356,7 @@ export default function RegistroDiario() {
             {gastos.length === 0 ? (
               <p className="text-gray-600 text-sm text-center py-4">No hay gastos registrados</p>
             ) : gastos.map(g => (
-              <div key={g.id} className="flex items-center justify-between bg-[#252525] rounded-xl px-3 py-2.5 group">
+              <div key={g.id} className="flex items-center justify-between bg-[#241a16] rounded-xl px-3 py-2.5 group">
                 <div>
                   <p className="text-white text-sm font-medium">{g.descripcion}</p>
                   <span className="text-xs bg-[#333] text-gray-400 px-2 py-0.5 rounded-full">{g.categoria}</span>
@@ -374,7 +374,7 @@ export default function RegistroDiario() {
       </div>
 
       {/* Notas del día */}
-      <div className="mt-4 bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-5">
+      <div className="mt-4 bg-[#1c1512] border border-[#2e2018] rounded-2xl p-5">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <StickyNote size={16} className="text-yellow-400" />
@@ -383,7 +383,7 @@ export default function RegistroDiario() {
           <button
             onClick={guardarNota}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-              notaGuardada ? 'bg-green-500/20 text-green-400' : 'bg-[#252525] text-gray-400 hover:text-white'
+              notaGuardada ? 'bg-green-500/20 text-green-400' : 'bg-[#241a16] text-gray-400 hover:text-white'
             }`}
           >
             {notaGuardada ? <><Check size={12} /> Guardado</> : 'Guardar nota'}
@@ -394,7 +394,7 @@ export default function RegistroDiario() {
           onChange={e => setNota(e.target.value)}
           placeholder="Ej: Día lluvioso, menos clientes. Faltó arroz. Cambiar proveedor de pollo..."
           rows={3}
-          className="w-full bg-[#252525] border border-[#333] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600 resize-none"
+          className="w-full bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600 resize-none"
         />
       </div>
     </div>

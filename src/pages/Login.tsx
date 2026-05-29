@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
-import { UtensilsCrossed, Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff } from 'lucide-react'
 
 export default function Login() {
   const { signInWithEmail } = useAuth()
@@ -20,17 +20,21 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#141414]">
+    <div className="min-h-screen flex items-center justify-center bg-[#120e0d]">
       <div className="w-full max-w-sm mx-4">
-        <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-[#c9a84c]/15 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <UtensilsCrossed size={30} className="text-[#c9a84c]" />
-          </div>
-          <h1 className="text-3xl font-bold text-[#c9a84c]">Casa Mamá</h1>
-          <p className="text-gray-400 mt-2 text-sm tracking-widest uppercase">Control de Almuerzos</p>
+        {/* Logo */}
+        <div className="text-center mb-8">
+          <img
+            src="/logo.png"
+            alt="Casa Mamá"
+            className="w-44 h-44 object-contain mx-auto drop-shadow-2xl"
+          />
+          <p className="text-gray-500 text-xs tracking-widest uppercase mt-1">
+            Control de Almuerzos
+          </p>
         </div>
 
-        <div className="bg-[#1e1e1e] border border-[#2e2e2e] rounded-2xl p-8 shadow-2xl">
+        <div className="bg-[#1c1512] border border-[#3a2e28] rounded-2xl p-8 shadow-2xl shadow-black/50">
           <h2 className="text-xl font-semibold text-white mb-6">Iniciar sesión</h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -42,7 +46,7 @@ export default function Login() {
                 onChange={e => setEmail(e.target.value)}
                 placeholder="tucorreo@gmail.com"
                 required
-                className="w-full bg-[#252525] border border-[#333] text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600 transition-colors"
+                className="w-full bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600 transition-colors"
               />
             </div>
 
@@ -55,7 +59,7 @@ export default function Login() {
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="w-full bg-[#252525] border border-[#333] text-white rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600 transition-colors"
+                  className="w-full bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-4 py-3 pr-11 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600 transition-colors"
                 />
                 <button
                   type="button"
@@ -82,6 +86,10 @@ export default function Login() {
             </button>
           </form>
         </div>
+
+        <p className="text-center text-gray-600 text-xs mt-6">
+          Solo usuarios autorizados pueden acceder
+        </p>
       </div>
     </div>
   )

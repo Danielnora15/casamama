@@ -111,7 +111,7 @@ export default function Resumen() {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (!active || !payload?.length) return null
     return (
-      <div className="bg-[#1e1e1e] border border-[#333] rounded-xl p-3 text-xs">
+      <div className="bg-[#1c1512] border border-[#3a2e28] rounded-xl p-3 text-xs">
         <p className="text-gray-300 mb-2 font-medium">{label}</p>
         {payload.map((p: any) => (
           <p key={p.name} style={{ color: p.color }}>{p.name}: {formatCOPFull(p.value)}</p>
@@ -127,7 +127,7 @@ export default function Resumen() {
           <h1 className="text-2xl font-bold text-white">Resumen</h1>
           <p className="text-gray-400 text-sm mt-0.5">Análisis de rendimiento del negocio</p>
         </div>
-        <div className="flex gap-1 bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl p-1">
+        <div className="flex gap-1 bg-[#1c1512] border border-[#2e2018] rounded-xl p-1">
           {(['semana', 'mes', 'todo'] as const).map(p => (
             <button key={p} onClick={() => setPeriodo(p)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all capitalize ${
@@ -151,7 +151,7 @@ export default function Resumen() {
           { label: 'Almuerzos', value: kpis.almuerzos.toString(), icon: Utensils, color: 'text-blue-400', bg: 'bg-blue-400/10' },
           { label: 'Promedio diario', value: formatCOPFull(kpis.promDiario), icon: Calendar, color: 'text-purple-400', bg: 'bg-purple-400/10' },
         ].map(k => (
-          <div key={k.label} className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-4">
+          <div key={k.label} className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-4">
             <div className="flex items-center justify-between mb-2">
               <p className="text-xs text-gray-400 uppercase tracking-wider">{k.label}</p>
               <div className={`w-7 h-7 rounded-lg ${k.bg} flex items-center justify-center`}>
@@ -180,7 +180,7 @@ export default function Resumen() {
 
       {/* Gráfica ingresos vs gastos */}
       {chartData.length > 0 && (
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-5 mb-4">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-5 mb-4">
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Ingresos vs Gastos</h2>
           <ResponsiveContainer width="100%" height={240}>
             <BarChart data={chartData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
@@ -198,7 +198,7 @@ export default function Resumen() {
 
       {/* Utilidad por día */}
       {chartData.length > 1 && (
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-5 mb-4">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-5 mb-4">
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Utilidad diaria</h2>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={chartData}>
@@ -214,7 +214,7 @@ export default function Resumen() {
 
       <div className="grid md:grid-cols-2 gap-4">
         {/* Top menús */}
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-5">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-5">
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Top platos vendidos</h2>
           {topMenus.length === 0 ? (
             <p className="text-gray-600 text-sm">Sin datos</p>
@@ -231,7 +231,7 @@ export default function Resumen() {
                         <span className="text-xs text-green-400 font-medium">{formatCOPFull(m.ingresos)}</span>
                       </div>
                     </div>
-                    <div className="h-1.5 bg-[#252525] rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[#241a16] rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all duration-500"
                         style={{ width: `${(m.total / topMenus[0].total) * 100}%`, background: COLORS[i] }}
@@ -245,7 +245,7 @@ export default function Resumen() {
         </div>
 
         {/* Gastos por categoría */}
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-5">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-5">
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Gastos por categoría</h2>
           {topGastos.length === 0 ? (
             <p className="text-gray-600 text-sm">Sin datos</p>

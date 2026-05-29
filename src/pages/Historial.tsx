@@ -82,17 +82,17 @@ export default function Historial() {
       </div>
 
       {/* Filtros */}
-      <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-4 mb-4">
+      <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-4 mb-4">
         <div className="flex flex-wrap gap-3 items-end">
           <div>
             <label className="text-xs text-gray-400 mb-1 block">Desde</label>
             <input type="date" value={desde} onChange={e => setDesde(e.target.value)}
-              className="bg-[#252525] border border-[#333] text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#c9a84c]" />
+              className="bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#c9a84c]" />
           </div>
           <div>
             <label className="text-xs text-gray-400 mb-1 block">Hasta</label>
             <input type="date" value={hasta} onChange={e => setHasta(e.target.value)}
-              className="bg-[#252525] border border-[#333] text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#c9a84c]" />
+              className="bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#c9a84c]" />
           </div>
           <div className="flex-1 min-w-48">
             <label className="text-xs text-gray-400 mb-1 block">Buscar</label>
@@ -102,7 +102,7 @@ export default function Historial() {
                 placeholder="Menú, descripción, categoría..."
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                className="w-full bg-[#252525] border border-[#333] text-white rounded-xl pl-8 pr-3 py-2 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600"
+                className="w-full bg-[#241a16] border border-[#3a2e28] text-white rounded-xl pl-8 pr-3 py-2 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600"
               />
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function Historial() {
             {(['todo', 'ventas', 'gastos'] as const).map(t => (
               <button key={t} onClick={() => setTab(t)}
                 className={`px-3 py-2 rounded-xl text-xs font-medium capitalize transition-all ${
-                  tab === t ? 'bg-[#c9a84c]/15 text-[#c9a84c] border border-[#c9a84c]/25' : 'text-gray-400 hover:text-white bg-[#252525]'
+                  tab === t ? 'bg-[#c9a84c]/15 text-[#c9a84c] border border-[#c9a84c]/25' : 'text-gray-400 hover:text-white bg-[#241a16]'
                 }`}>
                 {t === 'todo' ? 'Todo' : t === 'ventas' ? 'Ventas' : 'Gastos'}
               </button>
@@ -121,15 +121,15 @@ export default function Historial() {
 
       {/* Resumen rango */}
       <div className="grid grid-cols-3 gap-3 mb-4">
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-4">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-4">
           <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Ingresos</p>
           <p className="text-lg font-bold text-green-400">{formatCOP(totals.ingresos)}</p>
         </div>
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-4">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-4">
           <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Gastos</p>
           <p className="text-lg font-bold text-red-400">{formatCOP(totals.gastos)}</p>
         </div>
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-4">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-4">
           <p className="text-xs text-gray-400 uppercase tracking-wider mb-1">Utilidad</p>
           <p className={`text-lg font-bold ${totals.ingresos - totals.gastos >= 0 ? 'text-[#c9a84c]' : 'text-red-400'}`}>
             {formatCOP(totals.ingresos - totals.gastos)}
@@ -154,7 +154,7 @@ export default function Historial() {
           const isOpen = expanded.has(day.fecha)
 
           return (
-            <div key={day.fecha} className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl overflow-hidden">
+            <div key={day.fecha} className="bg-[#1c1512] border border-[#2e2018] rounded-2xl overflow-hidden">
               <button
                 onClick={() => toggle(day.fecha)}
                 className="w-full flex items-center justify-between px-5 py-4 hover:bg-white/2 transition-colors"
@@ -180,7 +180,7 @@ export default function Historial() {
               </button>
 
               {isOpen && (
-                <div className="border-t border-[#2a2a2a] px-5 py-4">
+                <div className="border-t border-[#2e2018] px-5 py-4">
                   <div className="grid md:grid-cols-2 gap-4">
                     {(tab === 'todo' || tab === 'ventas') && (
                       <div>
@@ -188,7 +188,7 @@ export default function Historial() {
                         {day.ventas.length === 0
                           ? <p className="text-gray-600 text-sm">Sin ventas</p>
                           : day.ventas.map(v => (
-                            <div key={v.id} className="flex justify-between items-center py-1.5 border-b border-[#2a2a2a] last:border-0">
+                            <div key={v.id} className="flex justify-between items-center py-1.5 border-b border-[#2e2018] last:border-0">
                               <div>
                                 <p className="text-white text-sm">{v.menu}</p>
                                 <p className="text-gray-500 text-xs">{v.cantidad} × {formatCOP(v.precio)}</p>
@@ -204,7 +204,7 @@ export default function Historial() {
                         {day.gastos.length === 0
                           ? <p className="text-gray-600 text-sm">Sin gastos</p>
                           : day.gastos.map(g => (
-                            <div key={g.id} className="flex justify-between items-center py-1.5 border-b border-[#2a2a2a] last:border-0">
+                            <div key={g.id} className="flex justify-between items-center py-1.5 border-b border-[#2e2018] last:border-0">
                               <div>
                                 <p className="text-white text-sm">{g.descripcion}</p>
                                 <span className="text-xs bg-[#333] text-gray-400 px-2 py-0.5 rounded-full">{g.categoria}</span>

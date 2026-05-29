@@ -170,7 +170,7 @@ export default function ResumenSemanal() {
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (!active || !payload?.length) return null
     return (
-      <div className="bg-[#1e1e1e] border border-[#333] rounded-xl p-3 text-xs">
+      <div className="bg-[#1c1512] border border-[#3a2e28] rounded-xl p-3 text-xs">
         <p className="text-gray-300 mb-2 font-medium">{label}</p>
         {payload.map((p: any) => (
           <p key={p.name} style={{ color: p.color }}>{p.name}: {formatCOPFull(p.value)}</p>
@@ -190,21 +190,21 @@ export default function ResumenSemanal() {
         <div className="flex items-center gap-1">
           <button
             onClick={() => setWeekOffset(w => w - 1)}
-            className="w-9 h-9 flex items-center justify-center bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl text-gray-400 hover:text-white hover:border-[#3a3a3a] transition-all"
+            className="w-9 h-9 flex items-center justify-center bg-[#1c1512] border border-[#2e2018] rounded-xl text-gray-400 hover:text-white hover:border-[#3a3a3a] transition-all"
           >
             <ChevronLeft size={16} />
           </button>
           <button
             onClick={() => setWeekOffset(0)}
             disabled={isCurrentWeek}
-            className="px-3 py-2 bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl text-xs text-gray-400 hover:text-white disabled:opacity-30 transition-all"
+            className="px-3 py-2 bg-[#1c1512] border border-[#2e2018] rounded-xl text-xs text-gray-400 hover:text-white disabled:opacity-30 transition-all"
           >
             Hoy
           </button>
           <button
             onClick={() => setWeekOffset(w => Math.min(w + 1, 0))}
             disabled={isCurrentWeek}
-            className="w-9 h-9 flex items-center justify-center bg-[#1e1e1e] border border-[#2a2a2a] rounded-xl text-gray-400 hover:text-white disabled:opacity-30 hover:border-[#3a3a3a] transition-all"
+            className="w-9 h-9 flex items-center justify-center bg-[#1c1512] border border-[#2e2018] rounded-xl text-gray-400 hover:text-white disabled:opacity-30 hover:border-[#3a3a3a] transition-all"
           >
             <ChevronRight size={16} />
           </button>
@@ -215,7 +215,7 @@ export default function ResumenSemanal() {
 
       {/* KPIs */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-4">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-xs text-gray-400 uppercase tracking-wider">Ingresos</p>
             <div className="w-7 h-7 rounded-lg bg-green-400/10 flex items-center justify-center">
@@ -226,7 +226,7 @@ export default function ResumenSemanal() {
           <div className="mt-1.5"><DiffBadge pct={diffIngresos} /></div>
         </div>
 
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-4">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-xs text-gray-400 uppercase tracking-wider">Gastos</p>
             <div className="w-7 h-7 rounded-lg bg-red-400/10 flex items-center justify-center">
@@ -236,7 +236,7 @@ export default function ResumenSemanal() {
           <p className="text-xl font-bold text-red-400">{formatCOPFull(totals.gastos)}</p>
         </div>
 
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-4">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-xs text-gray-400 uppercase tracking-wider">Utilidad</p>
             <div className={`w-7 h-7 rounded-lg flex items-center justify-center ${totals.utilidad >= 0 ? 'bg-[#c9a84c]/10' : 'bg-red-400/10'}`}>
@@ -246,7 +246,7 @@ export default function ResumenSemanal() {
           <p className={`text-xl font-bold ${totals.utilidad >= 0 ? 'text-[#c9a84c]' : 'text-red-400'}`}>{formatCOPFull(totals.utilidad)}</p>
         </div>
 
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-4">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-4">
           <div className="flex items-center justify-between mb-2">
             <p className="text-xs text-gray-400 uppercase tracking-wider">Almuerzos</p>
             <div className="w-7 h-7 rounded-lg bg-blue-400/10 flex items-center justify-center">
@@ -259,7 +259,7 @@ export default function ResumenSemanal() {
       </div>
 
       {/* Gráfica días de la semana */}
-      <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-5 mb-4">
+      <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-5 mb-4">
         <h2 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Ingresos y gastos por día</h2>
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={days} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
@@ -275,7 +275,7 @@ export default function ResumenSemanal() {
 
       <div className="grid md:grid-cols-2 gap-4">
         {/* Detalle por día */}
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-5">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-white text-sm uppercase tracking-wider">Detalle por día</h2>
             {mejorDia.ingresos > 0 && (
@@ -288,7 +288,7 @@ export default function ResumenSemanal() {
             {days.map(d => {
               const isEmpty = d.ingresos === 0 && d.gastos === 0
               return (
-                <div key={d.fecha} className={`flex items-center justify-between px-3 py-2.5 rounded-xl ${isEmpty ? 'opacity-30' : 'bg-[#252525]'}`}>
+                <div key={d.fecha} className={`flex items-center justify-between px-3 py-2.5 rounded-xl ${isEmpty ? 'opacity-30' : 'bg-[#241a16]'}`}>
                   <div className="flex items-center gap-3">
                     <span className="text-sm font-medium text-white w-8">{d.label}</span>
                     <span className="text-xs text-gray-500">{d.almuerzos > 0 ? `${d.almuerzos} alm.` : 'Sin datos'}</span>
@@ -307,7 +307,7 @@ export default function ResumenSemanal() {
         </div>
 
         {/* Top platos de la semana */}
-        <div className="bg-[#1e1e1e] border border-[#2a2a2a] rounded-2xl p-5">
+        <div className="bg-[#1c1512] border border-[#2e2018] rounded-2xl p-5">
           <h2 className="font-semibold text-white text-sm uppercase tracking-wider mb-4">Top platos de la semana</h2>
           {topMenus.length === 0 ? (
             <p className="text-gray-600 text-sm">Sin ventas esta semana</p>
@@ -326,7 +326,7 @@ export default function ResumenSemanal() {
                         <span className="text-xs text-green-400 font-medium">{formatCOPFull(m.ingresos)}</span>
                       </div>
                     </div>
-                    <div className="h-1.5 bg-[#252525] rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-[#241a16] rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full"
                         style={{
@@ -343,7 +343,7 @@ export default function ResumenSemanal() {
 
           {/* Promedio diario */}
           {totals.diasTrabajados > 0 && (
-            <div className="mt-5 pt-4 border-t border-[#2a2a2a]">
+            <div className="mt-5 pt-4 border-t border-[#2e2018]">
               <div className="flex justify-between items-center">
                 <span className="text-xs text-gray-400">Promedio diario</span>
                 <span className="text-sm font-semibold text-white">{formatCOPFull(Math.round(totals.ingresos / totals.diasTrabajados))}</span>
