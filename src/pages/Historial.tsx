@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import type { Venta, Gasto } from '../lib/types'
-import { Search, ChevronDown, ChevronUp, TrendingUp, TrendingDown, Calendar } from 'lucide-react'
+import { Search, ChevronDown, ChevronUp, TrendingUp, TrendingDown, Calendar, AlertTriangle } from 'lucide-react'
 
 function formatCOP(n: number) {
   return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n)
@@ -161,9 +161,16 @@ export default function Historial() {
               >
                 <div className="flex items-center gap-4">
                   <div className="text-left">
-                    <p className="text-white font-semibold text-sm">
-                      {new Date(day.fecha + 'T12:00:00').toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' })}
-                    </p>
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-white font-semibold text-sm">
+                        {new Date(day.fecha + 'T12:00:00').toLocaleDateString('es-CO', { weekday: 'long', day: 'numeric', month: 'long' })}
+                      </p>
+                      {day.ventas.length > 0 && day.gastos.length === 0 && (
+                        <span title="Hay ventas pero no se registró ningún gasto este día">
+                          <AlertTriangle size={13} className="text-yellow-400" />
+                        </span>
+                      )}
+                    </div>
                     <p className="text-gray-500 text-xs">{day.ventas.reduce((s, v) => s + v.cantidad, 0)} almuerzos · {day.ventas.length} platos · {day.gastos.length} gastos</p>
                   </div>
                 </div>

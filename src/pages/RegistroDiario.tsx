@@ -1,18 +1,27 @@
 import { useState, useEffect, useCallback } from 'react'
 import { supabase } from '../lib/supabase'
 import type { Venta, Gasto, MenuRapido } from '../lib/types'
+import { MENU_CANONICO, normalizarMenu } from '../lib/menuCanonico'
 import toast from 'react-hot-toast'
-import { Plus, Trash2, Zap, ShoppingCart, Receipt, StickyNote, Settings, X, Check, TrendingUp, TrendingDown, DollarSign, Utensils } from 'lucide-react'
+import { Plus, Trash2, Zap, ShoppingCart, Receipt, StickyNote, Settings, X, Check, TrendingUp, TrendingDown, DollarSign, Utensils, AlertTriangle } from 'lucide-react'
 
-const MENUS_DEFAULT: MenuRapido[] = [
-  { nombre: 'Chuleta de pescado', precio: 20000 },
-  { nombre: 'Chuleta de cerdo', precio: 20000 },
-  { nombre: 'Pollo plancha', precio: 20000 },
-  { nombre: 'Arroz paisa', precio: 18000 },
-  { nombre: 'Bandeja de frijoles', precio: 20000 },
-]
+const MENUS_DEFAULT: MenuRapido[] = MENU_CANONICO.slice(0, 8)
 
 const CATEGORIAS = ['Insumos', 'Personal', 'Servicios', 'Otros']
+
+interface GastoRapido {
+  descripcion: string
+  categoria: string
+  valor: number
+}
+
+// Gastos que se olvidan fácil por no ser diarios (arriendo, servicios, nómina).
+// Un clic los precarga en el formulario para que no falten en el mes.
+const GASTOS_RECURRENTES_DEFAULT: GastoRapido[] = [
+  { descripcion: 'Arriendo', categoria: 'Servicios', valor: 0 },
+  { descripcion: 'Servicios públicos (luz/agua/gas)', categoria: 'Servicios', valor: 0 },
+  { descripcion: 'Nómina', categoria: 'Personal', valor: 0 },
+]
 
 function formatCOP(n: number) {
   return new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', maximumFractionDigits: 0 }).format(n)
@@ -47,6 +56,11 @@ export default function RegistroDiario() {
   const [showMenuEditor, setShowMenuEditor] = useState(false)
   const [nuevoMenu, setNuevoMenu] = useState({ nombre: '', precio: '20000' })
 
+  // Gastos recurrentes configurables (arriendo, servicios, nómina...)
+  const [gastosRecurrentes] = useState<GastoRapido[]>(() => {
+    try { return JSON.parse(localStorage.getItem('gastos_recurrentes') || 'null') || GASTOS_RECURRENTES_DEFAULT } catch { return GASTOS_RECURRENTES_DEFAULT }
+  })
+
   const fetchData = useCallback(async () => {
     setLoading(true)
     const [{ data: v }, { data: g }] = await Promise.all([
@@ -75,9 +89,14 @@ export default function RegistroDiario() {
     if (isNaN(p) || p <= 0) return toast.error('Precio inválido')
     if (isNaN(c) || c <= 0) return toast.error('Cantidad inválida')
 
-    const { error } = await supabase.from('ventas').insert({ fecha, menu: menuNombre.trim(), precio: p, cantidad: c })
+    const nombreNormalizado = normalizarMenu(menuNombre)
+    const { error } = await supabase.from('ventas').insert({ fecha, menu: nombreNormalizado, precio: p, cantidad: c })
     if (error) return toast.error('Error al guardar')
-    toast.success('Venta agregada')
+    if (nombreNormalizado.toLowerCase() !== menuNombre.trim().toLowerCase()) {
+      toast.success(`Guardado como "${nombreNormalizado}"`)
+    } else {
+      toast.success('Venta agregada')
+    }
     setMenuNombre('')
     setCantidad('1')
     fetchData()
@@ -185,6 +204,18 @@ export default function RegistroDiario() {
           </div>
         ))}
       </div>
+      <p className="text-gray-600 text-xs mb-6 -mt-3">
+        * Utilidad y margen usan solo los gastos registrados ese día. Compras de insumos, arriendo o nómina no siempre son diarias, así que el número real de un día suelto puede verse más alto o más bajo — mira la tendencia semanal/mensual para algo confiable.
+      </p>
+
+      {!loading && fecha === today() && ventas.length > 0 && gastos.length === 0 && (
+        <div className="flex items-start gap-2 bg-yellow-400/10 border border-yellow-400/25 rounded-2xl p-4 mb-6">
+          <AlertTriangle size={16} className="text-yellow-400 mt-0.5 shrink-0" />
+          <p className="text-yellow-200 text-sm">
+            Aún no has registrado gastos de hoy. Si compraste insumos, pagaste nómina o servicios, anótalo antes de cerrar el día — así el margen no queda subestimado.
+          </p>
+        </div>
+      )}
 
       {loading && <div className="text-center text-gray-500 py-4">Cargando...</div>}
 
@@ -264,8 +295,12 @@ export default function RegistroDiario() {
               placeholder="Nombre del menú"
               value={menuNombre}
               onChange={e => setMenuNombre(e.target.value)}
+              list="menu-datalist"
               className="w-full bg-[#241a16] border border-[#3a2e28] text-white rounded-xl px-3 py-2.5 text-sm focus:outline-none focus:border-[#c9a84c] placeholder-gray-600"
             />
+            <datalist id="menu-datalist">
+              {MENU_CANONICO.map(m => <option key={m.nombre} value={m.nombre} />)}
+            </datalist>
             <div className="flex gap-2">
               <input
                 placeholder="Precio"
@@ -317,6 +352,25 @@ export default function RegistroDiario() {
           <div className="flex items-center gap-2 mb-4">
             <Receipt size={16} className="text-red-400" />
             <h2 className="font-semibold text-white text-sm uppercase tracking-wider">Gastos del día</h2>
+          </div>
+
+          {/* Gastos recurrentes: arriendo, servicios, nómina se olvidan fácil por no ser diarios */}
+          <div className="mb-4">
+            <div className="flex items-center gap-1.5 mb-2">
+              <Zap size={12} className="text-red-400" />
+              <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">No olvidar (no son diarios)</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {gastosRecurrentes.map((gr, i) => (
+                <button
+                  key={i}
+                  onClick={() => { setGastDesc(gr.descripcion); setGastCat(gr.categoria); if (gr.valor > 0) setGastValor(gr.valor.toString()) }}
+                  className="px-3 py-1.5 bg-[#241a16] hover:bg-red-400/15 border border-[#3a2e28] hover:border-red-400/40 text-gray-300 hover:text-red-300 rounded-full text-xs transition-all duration-150"
+                >
+                  {gr.descripcion}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Formulario gastos */}

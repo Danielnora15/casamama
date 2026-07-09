@@ -5,6 +5,7 @@ import {
   LineChart, Line, PieChart, Pie, Cell
 } from 'recharts'
 import { TrendingUp, TrendingDown, Award, Target, Calendar, Utensils } from 'lucide-react'
+import { normalizarMenu } from '../lib/menuCanonico'
 
 function formatCOP(n: number) {
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`
@@ -89,10 +90,10 @@ export default function Resumen() {
         }))
       setChartData(chartArr)
 
-      // Top menús
+      // Top menús (normalizado: agrupa variantes con typos/mayúsculas distintas)
       const menuMap = new Map<string, { total: number; ingresos: number }>()
       V.forEach(v => {
-        const key = v.menu.toLowerCase().trim()
+        const key = normalizarMenu(v.menu)
         const prev = menuMap.get(key) || { total: 0, ingresos: 0 }
         menuMap.set(key, { total: prev.total + v.cantidad, ingresos: prev.ingresos + v.precio * v.cantidad })
       })
