@@ -4,6 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from 'recharts'
 import { TrendingUp, TrendingDown, Award, Utensils, ChevronLeft, ChevronRight, Trophy, ArrowUp, ArrowDown, Minus } from 'lucide-react'
+import { normalizarMenu } from '../lib/menuCanonico'
 
 function formatCOP(n: number) {
   if (n >= 1_000_000) return `$${(n / 1_000_000).toFixed(1)}M`
@@ -117,10 +118,10 @@ export default function ResumenSemanal() {
       const prevGast = pG.reduce((s, g) => s + g.valor, 0)
       setPrevTotals({ ingresos: prevIng, utilidad: prevIng - prevGast })
 
-      // Top menús
+      // Top menús (normalizado: agrupa variantes con typos/mayúsculas distintas)
       const menuMap = new Map<string, { cantidad: number; ingresos: number }>()
       V.forEach(v => {
-        const key = v.menu.toLowerCase().trim()
+        const key = normalizarMenu(v.menu)
         const prev = menuMap.get(key) || { cantidad: 0, ingresos: 0 }
         menuMap.set(key, { cantidad: prev.cantidad + v.cantidad, ingresos: prev.ingresos + v.precio * v.cantidad })
       })
